@@ -7,6 +7,7 @@ import getUser from '../services/UserServices';
 import { jwtVerify } from '@kinde-oss/kinde-node-express';
 import { compute_streak } from '../compute_streaks';
 import config from '../config';
+import getTodaysChallenge from '../services/ChallengeServices';
 
 const { inDev } = config;
 
@@ -161,9 +162,7 @@ completions.get('/today', async (req, res) => {
 
     const user_id = user.id;
 
-    const challenge = await prisma.challenge.findUnique({
-      where: { date: new Date().toISOString() },
-    });
+    const challenge = await getTodaysChallenge();
 
     if (challenge === null) {
       res.status(404).json({ message: 'No challenge found for today' });
@@ -174,9 +173,10 @@ completions.get('/today', async (req, res) => {
 
     const completion = await prisma.completion.findUnique({
       where: {
-        user_id_challenge_id: {
+        user_id_challenge_id_date: {
           user_id,
           challenge_id,
+          date: new Date(),
         },
       },
     });
@@ -190,9 +190,7 @@ completions.get('/today', async (req, res) => {
 
 completions.get('/all_today', async (req, res) => {
   try {
-    const challenge = await prisma.challenge.findUnique({
-      where: { date: new Date().toISOString() },
-    });
+    const challenge = await getTodaysChallenge();
 
     if (challenge === null) {
       res.status(404).json({ message: 'No challenge found for today' });
@@ -253,11 +251,7 @@ completions.get('/:id', async (req, res) => {
 // Post method for completions
 completions.post('/', async (req, res) => {
   try {
-    const challenge = await prisma.challenge.findUnique({
-      where: {
-        date: new Date().toISOString(),
-      },
-    });
+    const challenge = await getTodaysChallenge();
 
     // Check that the challenge was found
     if (challenge === null) {
@@ -280,9 +274,10 @@ completions.post('/', async (req, res) => {
     // Check for existing completions
     const completion = await prisma.completion.findUnique({
       where: {
-        user_id_challenge_id: {
+        user_id_challenge_id_date: {
           user_id,
           challenge_id,
+          date: new Date(),
         },
       },
     });

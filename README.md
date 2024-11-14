@@ -18,14 +18,14 @@ This file will not be tracked by git and is unique to your local directory.\
 
 - DATABASE_URL
   - <span style="color:yellow;">**Required**</span>
-  - Contains the url of the postgres docker container
+  - Contains the url of the postgres database
 - Port
   - Optional for development
   - Lists the port that the server will run on
 - POSTGRES_PASSWORD
   - <span style="color:yellow;">**Required**</span>
   - Contains the password used for the postgres database
-- ENVIRONMENT
+- NODE_ENV
   - <span style="color:yellow;">**Required**</span>
   - Sets the enviroment to know whether to use authentication or not
 - KINDE_BACKEND_CLIENT_ID

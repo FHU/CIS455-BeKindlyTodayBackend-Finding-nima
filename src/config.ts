@@ -5,4 +5,8 @@ export default {
   kindeSecret: process.env.KINDE_CLIENT_SECRET,
   frontendUrl: process.env.SITE_URL,
   unAuthorizedUrl: process.env.UNAUTHORIZED_URL,
+  awsPublicKey: process.env.AWS_PUBLIC_KEY!,
+  awsSecretKey: process.env.AWS_SECRET_KEY!,
+  bucketName: process.env.BUCKET_NAME,
+  cdnDomain: process.env.CDN_DOMAIN,
 };

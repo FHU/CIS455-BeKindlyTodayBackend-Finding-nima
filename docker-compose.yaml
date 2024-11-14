@@ -22,7 +22,7 @@ services:
     environment:
       - PORT=${PORT}
       - DATABASE_URL=${DATABASE_URL}
-      - ENVIRONMENT=${ENVIRONMENT}
+      - NODE_ENV=${NODE_ENV}
     develop:
       watch:
         - path: ./package.json
